@@ -3,14 +3,15 @@ import NextLink from 'next/link'
 import ItemCounter from "../ui/ItemCounter"
 import React, { useContext } from "react"
 import { CartContext } from "@/context"
-import { ICartProduct } from "@/interfaces"
+import { ICartProduct, IOrderItem } from "@/interfaces"
 
 
 interface Props {
     editable?: boolean
+    products?: IOrderItem[]
 }
 
-const CartList: React.FC<Props> = ({ editable = false}) => {
+const CartList: React.FC<Props> = ({ editable = false, products}) => {
 
     const { cart, updatedCartQuantity, removeCartProduct } = useContext( CartContext)
 
@@ -19,10 +20,14 @@ const CartList: React.FC<Props> = ({ editable = false}) => {
         updatedCartQuantity(product)
     }
 
+
+    const productosToShow = products ? products : cart
+
+
   return (
     <>
         {
-            cart.map(product => {
+            productosToShow.map(product => {
                 return (
                     <Grid container key={product.slug + product.size} spacing={2} sx={{ mb: 1 }}>
                         <Grid item xs={3}>
@@ -47,7 +52,7 @@ const CartList: React.FC<Props> = ({ editable = false}) => {
                                         <ItemCounter 
                                             currentValue={product.quantity}
                                             maxValue={10}
-                                            updatedQuantit={ (value) => onNewCartQuantityValue(product, value)}
+                                            updatedQuantit={ (value) => onNewCartQuantityValue(product as ICartProduct, value)}
                                         />
                                     )
                                     : (
@@ -65,7 +70,7 @@ const CartList: React.FC<Props> = ({ editable = false}) => {
                                 <Button 
                                     variant="text" 
                                     color="secondary"
-                                    onClick={() => removeCartProduct(product)}
+                                    onClick={() => removeCartProduct(product as ICartProduct)}
                                 >
                                     Remove
                                 </Button>

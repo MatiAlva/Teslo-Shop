@@ -11,7 +11,7 @@ const userSchema = new Schema({
             values: ['admin', 'client'],
              message: 'VALUE no es un rol valido',
             default: 'client',
-            reuired: true
+            required: true
         }
     }
 }, {

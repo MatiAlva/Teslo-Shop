@@ -36,7 +36,6 @@ export const  AuthProvider: React.FC<Props> = ({children}) => {
 
     useEffect(() => {
         if (status === 'authenticated') {
-            console.log({user: data.user})
             dispatch({type: 'Auth - Login', payload: data?.user as IUser})
         }
     }, [status, data])
@@ -44,7 +43,9 @@ export const  AuthProvider: React.FC<Props> = ({children}) => {
 
     const checkToken = async() => {
 
-        if ( !Cookies.get('token')) return
+        if ( !Cookies.get('token')){
+            return
+        }
 
         try {
             const {data} = await tesloApi.get('/user/validate-token')

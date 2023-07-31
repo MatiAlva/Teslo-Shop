@@ -6,5 +6,5 @@ export interface IUser {
     role: string,
 
     createdAt?: string,
-    createdAt?: string
+    updatedAt?: string
 }
