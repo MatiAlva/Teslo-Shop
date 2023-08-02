@@ -1,5 +1,5 @@
 import { CartContext } from './CartContext'
-import React, { ReactNode, useEffect, useReducer } from 'react'
+import React, { ReactNode, useEffect, useReducer, useRef } from 'react'
 import {  cartReducer } from './'
 import { ICartProduct, IOrder, ShippingAdress } from '@/interfaces'
 import Cookie from 'js-cookie'
@@ -36,6 +36,7 @@ interface Props {
 export const CartProvider: React.FC<Props> = ({children}) => {
 
     const [state, dispatch] = useReducer( cartReducer,  CART_INITIAL_STATE)
+    const isReloading = useRef( true )
 
     useEffect(() => {
           try {
@@ -69,7 +70,11 @@ export const CartProvider: React.FC<Props> = ({children}) => {
 
 
      useEffect(() => {
-          Cookie.set('cart', JSON.stringify(state.cart))
+           if ( isReloading.current ) {
+               isReloading.current = false;
+          } else {
+               Cookie.set( 'cart', JSON.stringify( state.cart ) );
+          }
      }, [state.cart])
 
 

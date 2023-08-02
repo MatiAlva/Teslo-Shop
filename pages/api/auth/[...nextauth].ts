@@ -1,10 +1,20 @@
-import NextAuth from 'next-auth';
+import NextAuth, {NextAuthOptions} from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
 import Credentials from 'next-auth/providers/credentials';
-
 import { dbUsers } from '../../../database';
 
-export default NextAuth({
+
+declare module "next-auth" {
+  interface Session {
+    accessToken?: string;
+  }
+  interface User {
+      id?: string
+      _id: string
+  }
+};
+
+export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
   providers: [
     
@@ -80,7 +90,7 @@ export default NextAuth({
     async session({ session, token, user }){
       // console.log({ session, token, user });
 
-      session.accessToken = token.accessToken;
+      session.accessToken = token.accessToken as any;
       session.user = token.user as any;
 
       return session;
@@ -89,4 +99,8 @@ export default NextAuth({
 
   }
 
-});
+};
+
+
+
+export default NextAuth(authOptions)
