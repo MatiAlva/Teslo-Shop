@@ -15,7 +15,9 @@ export interface IOrder {
     total: number
 
     isPaid: boolean
-    paidAt?: string
+    paidAt?: string,
+
+    timestamps?: string
 
 }
 

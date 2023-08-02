@@ -39,7 +39,7 @@ const SummaryPage = () => {
 
 
     if (!shippingAdress) {
-        return (<></>)
+        return <></>
     }
 
     const {firstName, lastName, address, address2 = '', city, country, phone, zip} = shippingAdress

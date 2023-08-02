@@ -64,8 +64,8 @@ export const cartReducer = (state: CartState, action: CartActionType):CartState 
                 }
 
 
-            case 'Cart - LoadAddress from Cookies' :
             case 'Cart - Update Address' :
+            case 'Cart - LoadAddress from Cookies' :
                 return {
                     ...state,
                     shippingAdress: action.payload
@@ -82,6 +82,6 @@ export const cartReducer = (state: CartState, action: CartActionType):CartState 
                 }
 
                 default:
-            return state
+                    return state
     }
 }
