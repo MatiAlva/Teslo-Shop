@@ -13,23 +13,20 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 
 
+export type OrderResponseBody = {
+    id: string,
+    status: 
+    | 'COMPLETED'
+    | 'SAVED'
+    | 'APPROVED'
+    | 'VOIDED'
+    | 'PAYER_ACTION_REQUIRED'
+    | 'CREATED'
+}
 
 interface Props {
     order: IOrder
 }
-
-
-
-export type OrderResponseBody = {
-    id: string,
-    status: 
-     | 'COMPLETED'
-     | 'SAVED'
-     | 'APPROVED'
-     | 'VOIDED'
-     | 'PAYER_ACTION_REQUIRED'
-}
-
 
 const OrderPage:NextPage<Props> = ({ order }) => {
 

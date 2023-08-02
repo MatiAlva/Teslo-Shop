@@ -17,7 +17,7 @@ export interface IOrder {
     isPaid: boolean
     paidAt?: string,
 
-    timestamps?: string
+    transactionId?: string
 
 }
 
