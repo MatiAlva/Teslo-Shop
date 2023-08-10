@@ -29,7 +29,7 @@ export interface IOrderItem {
     quantity: number
     slug: string
     image: string
-    price: number,
+    price: number
     gender: string
 }
 

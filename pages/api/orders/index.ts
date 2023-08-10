@@ -3,7 +3,10 @@ import { IOrder } from '@/interfaces'
 import { Product } from '@/models'
 import Order from '@/models/Order'
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { getServerSession } from 'next-auth'
 import { getSession } from 'next-auth/react'
+import { authOptions } from '../auth/[...nextauth]'
+
 
 type Data = 
     |{ message: string}
@@ -29,7 +32,7 @@ const createOrder = async(req: NextApiRequest, res: NextApiResponse<Data>) => {
     const { orderItems, total } = req.body as IOrder
 
     //Verificar que tengamos un usuario
-    const session: any = await getSession({ req })
+    const session: any = await getServerSession(req, res, authOptions);
 
     if (!session) {
         return res.status(401).json({
